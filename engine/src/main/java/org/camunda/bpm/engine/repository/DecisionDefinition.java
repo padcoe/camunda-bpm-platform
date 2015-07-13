@@ -12,10 +12,6 @@
  */
 package org.camunda.bpm.engine.repository;
 
-/**
- * @author Roman Smirnov
- *
- */
-public interface CaseDefinition extends ResourceDefinition {
+public interface DecisionDefinition extends ResourceDefinition {
 
 }

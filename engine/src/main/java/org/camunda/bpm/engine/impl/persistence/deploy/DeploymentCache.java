@@ -30,6 +30,7 @@ import org.camunda.bpm.engine.impl.cmd.GetDeploymentResourceCmd;
 import org.camunda.bpm.engine.impl.cmmn.entity.repository.CaseDefinitionEntity;
 import org.camunda.bpm.engine.impl.cmmn.entity.repository.CaseDefinitionQueryImpl;
 import org.camunda.bpm.engine.impl.context.Context;
+import org.camunda.bpm.engine.impl.dmmn.entity.repository.DecisionDefinitionEntity;
 import org.camunda.bpm.engine.impl.interceptor.CommandContext;
 import org.camunda.bpm.engine.impl.persistence.entity.DeploymentEntity;
 import org.camunda.bpm.engine.impl.persistence.entity.ProcessDefinitionEntity;
@@ -51,6 +52,7 @@ public class DeploymentCache {
 
   protected Map<String, ProcessDefinitionEntity> processDefinitionCache = new HashMap<String, ProcessDefinitionEntity>();
   protected Map<String, CaseDefinitionEntity> caseDefinitionCache = new HashMap<String, CaseDefinitionEntity>();
+  protected Map<String, DecisionDefinitionEntity> decisionDefinitionCache = new HashMap<String, DecisionDefinitionEntity>();
   protected Map<String, BpmnModelInstance> bpmnModelInstanceCache = new HashMap<String, BpmnModelInstance>();
   protected Map<String, CmmnModelInstance> cmmnModelInstanceCache = new HashMap<String, CmmnModelInstance>();
   protected List<Deployer> deployers;
@@ -327,6 +329,20 @@ public class DeploymentCache {
 
   public void discardCaseDefinitionCache() {
     caseDefinitionCache.clear();
+  }
+
+  // DECISION DEFINITION ////////////////////////////////////////////////////////////////////////////
+
+  public void addDecisionDefinition(DecisionDefinitionEntity decisionDefinition) {
+    decisionDefinitionCache.put(decisionDefinition.getId(), decisionDefinition);
+  }
+
+  public void removeDecisionDefinition(String decisionDefinitionId) {
+    decisionDefinitionCache.remove(decisionDefinitionId);
+  }
+
+  public void discardDecisionDefinitionCache() {
+    decisionDefinitionCache.clear();
   }
 
   // getters and setters //////////////////////////////////////////////////////
